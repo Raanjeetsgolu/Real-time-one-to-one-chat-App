@@ -1,0 +1,36 @@
+import React, { useRef, useEffect } from "react";
+import Moment from "react-moment";
+
+const Message = ({ msg, user1 }) => {
+ 
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [msg]);
+
+ 
+  return (
+    <div
+      className={`message_wrapper ${msg.from === user1 ? "own" : ""}`}
+      ref={scrollRef}
+    >
+      <p className={msg.from === user1 ? "me" : "friend"}>
+        {msg.text} 
+        
+            {msg.MessageStatus==="delivired" ?
+            <><small className={msg.from !== user1 ? "left unread" : "user22"}  >✔✔</small></>:<><small className={msg.from !== user1 ? "left unread" : "user22"}>✔</small></>}
+        <br />
+        
+        <small >
+          <Moment fromNow >{msg.createdAt.toDate()}</Moment>
+          
+        
+        </small>
+
+      </p>
+    </div>
+  );
+};
+
+export default Message;
